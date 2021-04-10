@@ -1,0 +1,36 @@
+<html>
+<head></head>
+<body>
+	<h1 id="username">Hello, </h1>
+	<div id="wrapper">
+	<div id="field_div">
+	<form class="form1" action="/addMsg" method="POST">		
+		<input type="text" name="Textbox">
+		<input type="button" id="btn1" name="AddTextBox" value="Add new" onclick="add_field();">
+		<input type="submit" class="submit" align="center">
+	</form>
+	</div>
+	</div>
+	<script type="text/javascript">
+		var username = JSON.parse('<%- user %>');
+		document.getElementById("username").innerHTML += username;
+
+
+		function add_field(){
+  			var total_text=document.getElementsByClassName("input_text");
+  			total_text=total_text.length+1;
+  			document.getElementById("field_div").innerHTML=document.getElementById("field_div").innerHTML+ "<p id='input_text"+total_text+"_wrapper'><input type='text' class='input_text' id='input_text"+total_text+"' placeholder='Enter Text'><input type='button' value='Remove' onclick=remove_field('input_text"+total_text+"');></p>";
+		}
+
+		function remove_field(id){
+  			document.getElementById(id+"_wrapper").innerHTML="";
+  			document.getElementById(id+"_wrapper").remove();
+  			console.log('removed');
+  			console.log(id);
+
+		}
+
+	</script>
+</body>
+
+</html>
