@@ -60,6 +60,32 @@ app.post('/auth', function(request, response) {
 });
 
 
+app.post('/addMsg', function(request, response){
+	var messages = [];
+	messages.push(request.body.Textbox);
+	if (request.body.newTextbox){
+		messages = messages.concat(request.body.newTextbox);
+	}
+	if (request.session.loggedin){
+		for (let msg of messages){
+			console.log(msg);
+			let stmt = 'INSERT INTO messages (uname, chip_id, message_id, message) VALUES (?, ?, ?, ?)';
+			let inserts = [request.session.username, 'test chip', 'test message', msg];
+			/*connection.query(stmt, inserts, (err, results, fields) => {
+  				if (err) {
+    			return console.error(err.message);
+  				}
+  				// get inserted id
+  				console.log('Todo Id:' + results.insertId);
+			});*/
+		}
+	}else{
+		response.send('Please login to view this page!');
+	}
+	response.end();
+});
+
+
 app.get('/test', function(request, response) {
 	if (request.session.loggedin) {
 		response.render('test.ejs',{user:JSON.stringify(request.session.username)});

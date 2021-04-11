@@ -4,7 +4,7 @@
 	<h1 id="username">Hello, </h1>
 	<div id="wrapper">
 	<div id="field_div">
-	<form class="form1" action="/addMsg" method="POST">		
+	<form class="form1" action="/addMsg" method="POST" id="newMessages">		
 		<input type="text" name="Textbox">
 		<input type="button" id="btn1" name="AddTextBox" value="Add new" onclick="add_field();">
 		<input type="submit" class="submit" align="center">
@@ -19,12 +19,14 @@
 		function add_field(){
   			var total_text=document.getElementsByClassName("input_text");
   			total_text=total_text.length+1;
-  			document.getElementById("field_div").innerHTML=document.getElementById("field_div").innerHTML+ "<p id='input_text"+total_text+"_wrapper'><input type='text' class='input_text' id='input_text"+total_text+"' placeholder='Enter Text'><input type='button' value='Remove' onclick=remove_field('input_text"+total_text+"');></p>";
+  			document.getElementById("newMessages").innerHTML=document.getElementById("newMessages").innerHTML+ "<input type='text' name='newTextbox' class='input_text' id='input_text"+total_text+"' placeholder='Enter Text'><input type='button' id='input_btn"+total_text+"' value='Remove' onclick=remove_field("+total_text+");>";
 		}
 
 		function remove_field(id){
-  			document.getElementById(id+"_wrapper").innerHTML="";
-  			document.getElementById(id+"_wrapper").remove();
+  			document.getElementById('input_text'+id).innerHTML="";
+  			document.getElementById('input_text'+id).remove();
+  			document.getElementById('input_btn'+id).innerHTML="";
+  			document.getElementById('input_btn'+id).remove();
   			console.log('removed');
   			console.log(id);
 
