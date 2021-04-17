@@ -5,8 +5,8 @@
 	<div id="wrapper">
 	<div id="field_div">
 	<form class="form1" action="/addMsg" method="POST" id="newMessages">		
-		<input type="text" name="Textbox" class='input_text'>
-		<input type="button" id="btn1" name="AddTextBox" value="Add new" onclick="add_field();">
+		<input type="text" name="Textbox" class='input_text' placeholder='Enter Message!'>
+		<input type="button" id="btn1" name="AddTextBox" value="Add new" class="btn_format" onclick="add_field();">
 		<input type="submit" class="submit" align="center">
 	</form>
 	</div>
@@ -19,7 +19,7 @@
 		function add_field(){
   			var total_text=document.getElementsByClassName("input_text");
   			total_text=total_text.length+1;
-  			document.getElementById("newMessages").innerHTML=document.getElementById("newMessages").innerHTML+ "<input type='text' name='newTextbox' class='input_text' id='input_text"+total_text+"' placeholder='Enter Text'><input type='button' id='input_btn"+total_text+"' value='Remove' onclick=remove_field("+total_text+");>";
+  			document.getElementById("newMessages").innerHTML=document.getElementById("newMessages").innerHTML+ "<input type='text' name='newTextbox' class='input_text' id='input_text"+total_text+"' placeholder='Enter Message!'><input type='button' id='input_btn"+total_text+"' value='Remove' class='btn_format' onclick=remove_field("+total_text+");>";
 		}
 
 		function remove_field(id){
