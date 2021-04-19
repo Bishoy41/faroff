@@ -33,25 +33,33 @@
 		}
 		console.log()
 		document.getElementById("username").innerHTML += username;
+		let total_text=document.getElementsByClassName("input_text").length;
 
 
 		function add_field(){
-  			let total_text=document.getElementsByClassName("input_text");
-  			total_text=total_text.length+1;
+  			total_text=total_text+1;
   			let input_field = document.createElement("input");
   			input_field.type = "text";
   			input_field.name = "newTextbox";
   			input_field.class = 'input_text';
   			input_field.id='input_text'+total_text;
   			input_field.placeholder = 'Enter Message!';
+  			document.getElementById("newMessages").appendChild(input_field);
+
   			let remove_btn = document.createElement("input");
   			remove_btn.type = "button";
   			remove_btn.id = 'input_btn'+total_text;
   			remove_btn.value = 'Remove';
   			remove_btn.class='btn_format';
-  			remove_btn.onclick=remove_field(total_text);
-
-  			document.getElementById("newMessages").appendChild(input_field);
+  			remove_btn.onclick = function(total_text){
+  				console.log(total_text);
+  				document.getElementById('input_text'+total_text).innerHTML="";
+  				document.getElementById('input_text'+total_text).remove();
+  				document.getElementById('input_btn'+total_text).innerHTML="";
+  				document.getElementById('input_btn'+total_text).remove();
+  				console.log('removed');
+  				console.log(id);
+  			}
   			document.getElementById("newMessages").appendChild(remove_btn);
 		}
 
