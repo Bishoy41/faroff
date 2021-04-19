@@ -52,14 +52,24 @@ body {
     box-sizing: border-box;
 }
 .message_div {
+    overflow-x: hidden;
+    height: 85%;
     background: none repeat scroll 0 0 #fff;
     color: #FFFFFF;
     font-family: "Open Sans";
     line-height: 26px;
     width: 400px;
     margin: 0 auto;
-    overflow-X: hidden;
     position: relative;
+}
+
+.messages-wrapper{
+    margin:4px, 4px;
+    padding:4px;
+    height: 85%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
 }
 .left {
   position: absolute;
@@ -106,6 +116,10 @@ header h2 {
   color: #111111;
 }
 
+#header {
+  position: fixed;
+}
+
 h2 {
         margin-block-start: 0.05em;
 }
@@ -130,7 +144,7 @@ h2 {
 .message.from {
     background-color: #E5E4E9;
     color: #363636;
-    margin-right: 80px;
+    margin-right: 25%;
 }
 .message.to + .message.to,
 .message.from + .message.from {

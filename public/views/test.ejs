@@ -15,7 +15,7 @@
 		<div style="width:50%; float:right; display:inline-block;" class="message_div">
 			<header>
 				<span class="left">Messages</span>
-				<h2>Jonathan Ive</h2>
+				<h2 id="partner_Name"></h2>
 				<span class="right">Contact</span>
 			</header>
 			<div class="messages-wrapper" id="chat_area">
@@ -33,6 +33,7 @@
 		}
 		console.log()
 		document.getElementById("username").innerHTML += username;
+		document.getElementById("partner_Name").innerHTML += username;
 		let total_text=document.getElementsByClassName("input_text").length;
 
 
