@@ -68,16 +68,17 @@ app.post('/addMsg', function(request, response){
 	}
 	if (request.session.loggedin){
 		for (let msg of messages){
-			console.log(msg);
-			let stmt = 'INSERT INTO messages (uname, chip_id, message_id, message) VALUES (?, ?, ?, ?)';
-			let inserts = [request.session.username, 'test chip', 'test message', msg];
-			connection.query(stmt, inserts, (err, results, fields) => {
-  				if (err) {
-    			return console.error(err.message);
-  				}
-  				// get inserted id
-  				console.log('Todo Id:' + results.insertId);
-			});
+			if (msg !== ""){
+				let stmt = 'INSERT INTO messages (uname, chip_id, message_id, message) VALUES (?, ?, ?, ?)';
+				let inserts = [request.session.username, 'test chip', 'test message', msg];
+				connection.query(stmt, inserts, (err, results, fields) => {
+  					if (err) {
+    					return console.error(err.message);
+  					}
+  					// get inserted id
+  					console.log('Todo Id:' + results.insertId);
+				});
+			}
 		}
 	}else{
 		response.send('Please login to view this page!');
@@ -88,13 +89,43 @@ app.post('/addMsg', function(request, response){
 
 app.get('/test', function(request, response) {
 	if (request.session.loggedin) {
-		response.render('test.ejs',{user:JSON.stringify(request.session.username)});
-		//,{user:request.session.username}
-		//response.sendFile(path.join(__dirname,'/public/test.html'));
+		let stmt = 'SELECT * from messages WHERE uname=?';
+		let values = [request.session.username];
+		var prvMsg;
+		
+
+		let myPromise = new Promise(function(myResolve, myReject) {
+			// "Producing Code" (May take some time)
+			connection.query(stmt, values, function (err, results, fields) {
+  					if (err) {
+  						myReject(console.error(err.message));
+  					}else{
+  						myResolve(JSON.stringify(results));
+  					}
+			})
+		});
+
+		// "Consuming Code" (Must wait for a fulfilled Promise)
+		myPromise.then(
+  			function(value) {
+  				/* code if successful */ 
+  				console.log(value);
+  				response.render('test.ejs',{user:JSON.stringify(request.session.username), storedMsg:value});
+  				response.end();
+
+  			},
+  			function(error) { /* code if some error */
+  			    return error;
+  			    console.log("error");
+		    	response.end();
+
+			}
+		);
+
 	} else {
 		response.send('Please login to view this page!');
+		response.end();
 	}
-	response.end();
 });
 
 //app.use('/test',express.static('test.html'));

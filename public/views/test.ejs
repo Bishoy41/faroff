@@ -3,23 +3,56 @@
 <body>
 	<h1 id="username">Hello, </h1>
 	<div id="wrapper">
-	<div id="field_div">
-	<form class="form1" action="/addMsg" method="POST" id="newMessages">		
-		<input type="text" name="Textbox" class='input_text' placeholder='Enter Message!'>
-		<input type="button" id="btn1" name="AddTextBox" value="Add new" class="btn_format" onclick="add_field();">
-		<input type="submit" class="submit" align="center">
-	</form>
+		<div style="width:50%; float:left; display:inline-block;" id="field_div">
+			<form class="form1" action="/addMsg" method="POST" id="newMessages">		
+				<input type="text" name="Textbox" class='input_text' placeholder='Enter Message!'>
+				<input type="button" id="btn1" name="AddTextBox" value="Add new" class="btn_format" onclick="add_field();">
+				<input type="submit" class="submit" align="center">
+			</form>
+		</div>
+
+
+		<div style="width:50%; float:right; display:inline-block;" class="message_div">
+			<header>
+				<span class="left">Messages</span>
+				<h2>Jonathan Ive</h2>
+				<span class="right">Contact</span>
+			</header>
+			<div class="messages-wrapper" id="chat_area">
+  				
+			</div>
+		</div>
 	</div>
-	</div>
+
+
 	<script type="text/javascript">
-		var username = JSON.parse('<%- user %>');
+		let username = JSON.parse('<%- user %>');
+		let message = JSON.parse('<%- storedMsg %>');
+		for (let msgs of message){
+			document.getElementById("chat_area").innerHTML+='<div class="message from">'+msgs.message+'</div>';
+		}
+		console.log()
 		document.getElementById("username").innerHTML += username;
 
 
 		function add_field(){
-  			var total_text=document.getElementsByClassName("input_text");
+  			let total_text=document.getElementsByClassName("input_text");
   			total_text=total_text.length+1;
-  			document.getElementById("newMessages").innerHTML=document.getElementById("newMessages").innerHTML+ "<input type='text' name='newTextbox' class='input_text' id='input_text"+total_text+"' placeholder='Enter Message!'><input type='button' id='input_btn"+total_text+"' value='Remove' class='btn_format' onclick=remove_field("+total_text+");>";
+  			let input_field = document.createElement("input");
+  			input_field.type = "text";
+  			input_field.name = "newTextbox";
+  			input_field.class = 'input_text';
+  			input_field.id='input_text'+total_text;
+  			input_field.placeholder = 'Enter Message!';
+  			let remove_btn = document.createElement("input");
+  			remove_btn.type = "button";
+  			remove_btn.id = 'input_btn'+total_text;
+  			remove_btn.value = 'Remove';
+  			remove_btn.class='btn_format';
+  			remove_btn.onclick=remove_field(total_text);
+
+  			document.getElementById("newMessages").appendChild(input_field);
+  			document.getElementById("newMessages").appendChild(remove_btn);
 		}
 
 		function remove_field(id){
