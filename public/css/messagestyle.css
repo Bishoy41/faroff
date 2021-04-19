@@ -94,9 +94,12 @@ body {
 }
 .right {
   position: absolute;
-  top: 0;
+  top: 10;
   right: 15px;
-  font-size: 18px
+  font-size: 18px;
+  color: #2095FE;
+  background: transparent;
+  border: none !important;
 }
 header {
   color: #2095FE;

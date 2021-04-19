@@ -16,7 +16,7 @@
 			<header>
 				<span class="left">Messages</span>
 				<h2 id="partner_Name"></h2>
-				<span class="right">Contact</span>
+				<span class="right"><input type="button" value="Edit" id="edit_btn" class="right" onclick="remove_messages();"></span>
 			</header>
 			<div class="messages-wrapper" id="chat_area">
   				
@@ -29,7 +29,7 @@
 		let username = JSON.parse('<%- user %>');
 		let message = JSON.parse('<%- storedMsg %>');
 		for (let msgs of message){
-			document.getElementById("chat_area").innerHTML+='<div class="message from">'+msgs.message+'</div>';
+			document.getElementById("chat_area").innerHTML+='<div class="message from">'+msgs.message+'</div><input type="checkbox" id="checkbox" />';
 		}
 		console.log()
 		document.getElementById("username").innerHTML += username;
@@ -64,6 +64,14 @@
   			console.log('removed');
   			console.log(id);
 
+		}
+
+		function remove_messages(){
+			if (document.getElementById("edit_btn").value!=="Done"){
+				document.getElementById("edit_btn").value="Done";
+			}else{
+				document.getElementById("edit_btn").value="Edit"
+			}
 		}
 
 	</script>
